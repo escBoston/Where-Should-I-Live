@@ -36,10 +36,14 @@ def submit():
     
     print(state)
     
-    crime_rate_ntl_avg = np.mean(tempinc['crime_rate_pc'])
+    #crime_rate_ntl_avg = np.mean(tempinc['crime_rate_pc'])
     
-    tempinc = tempinc.loc[(tempinc['state'] == state) & (tempinc['home_price'] < home_budget)]
-    tempinc.sort_values(by = 'residuals', ascending = False, inplace = True)
+    tempinc = tempinc.loc[tempinc['home_price'] < home_budget]
+    if state != 'Any':
+        tempinc = tempinc.loc[tempinc['state'] == state]
+    
+    tempinc['percent_savings'] = (tempinc['preds'] - tempinc['home_price']) / tempinc['preds']
+    tempinc.sort_values(by = 'percent_savings', ascending = False, inplace = True)
     
     best_deal = tempinc.iloc[i]
     
@@ -48,8 +52,9 @@ def submit():
         townstate = best_deal['townstate'],
         actual_home_price = int(best_deal['home_price']),
         predicted_home_price = int(best_deal['preds']),
-        crime_rate_pc = best_deal['crime_rate_pc'],
-        relative_crime_rate = np.round(((crime_rate_ntl_avg - best_deal['crime_rate_pc']) / crime_rate_ntl_avg) * 100, 1),
+        percent_savings = np.round(best_deal['percent_savings'] * 100, 2),
+        crime_rate_pc = np.round(best_deal['crime_rate_pc'], 3),
+        #relative_crime_rate = np.round(((crime_rate_ntl_avg - best_deal['crime_rate_pc']) / crime_rate_ntl_avg) * 100, 1),
         unemployment_rate = np.round(best_deal['unemployment_rate'], 2),
         median_income = int(best_deal['med_income'])
     )
