@@ -22,7 +22,7 @@ def submit():
     global i
     i += 1
     print(i)
-    testinc = pd.read_csv('../data/testinc.csv')
+    tempinc = pd.read_csv('../data/testinc.csv')
     
     user_input = request.args
     #print(*user_input, sep='\n')
@@ -34,12 +34,14 @@ def submit():
         state = user_input['state']
         state = state[0].upper() + state[1:]
     
-    crime_rate_ntl_avg = np.mean(testinc['crime_rate_pc'])
+    print(state)
     
-    testinc = testinc.loc[(testinc['state'] == state) & (testinc['home_price'] < home_budget)]
-    testinc.sort_values(by = 'residuals', ascending = False, inplace = True)
+    crime_rate_ntl_avg = np.mean(tempinc['crime_rate_pc'])
     
-    best_deal = testinc.iloc[i]
+    tempinc = tempinc.loc[(tempinc['state'] == state) & (tempinc['home_price'] < home_budget)]
+    tempinc.sort_values(by = 'residuals', ascending = False, inplace = True)
+    
+    best_deal = tempinc.iloc[i]
     
     return render_template(
         'results1.html',

@@ -2,13 +2,13 @@
 
 ## Table of Contents
 [1.0 Directory Structure](#10-Directory-Structure)<br>
-[2.0 Problem Statement](#20-Problem-Statement)<br>
+[2.0 Executive Summary](#20-Executive-Summary)<br>
 [3.0 Description of Data](#30-Description-of-Data)<br>
 -[3.1 Size](#31-Size)<br>
 -[3.2 Sources](#32-Sources)<br>
 -[3.3 Data Dictionary](#33-Data-Dictionary)<br>
-[4.0 Conclusion](#50-Conclusion)<br>
-[5.0 Next Steps](#60-Next-Steps)<br>
+[4.0 Data Visualization](#50-Data-Visualization)<br>
+[5.0 Conclusion + Next Steps](#60-Conclusion-+-Next-Steps)<br>
 
 ## 1.0 Directory Structure
 
@@ -39,6 +39,9 @@
         ├── inc.pkl
         ├── inc2.pkl
         ├── education.pkl
+    ├── plots
+        ├── rf.png
+        ├── resid.png
     ├── extra
         ├── modelingcopy.ipynb
         ├── testresponse.ipynb
@@ -46,9 +49,9 @@
     └── capstone_slides.pdf
 ```
 
-## 2.0 Problem Statement
+## 2.0 Executive Summary
 
-In awe at the size of this lad. Absolute unit.
+The "Where Should I Live?" app is an online interactive tool designed to help users find the best deals on homes. There are many online resources already available that can display the cheapest homes in a given area. This app uses machine learning to improve upon this idea. Using data gathering techniques like web scraping, a dataset of over 5,000 U.S. municipalities was assembled, with many features including crime rate per capita, Gini coefficient, and population density. A random forest regression model was trained to predict the average home price per town. The app operates by first filtering the data based on the user's constraints, then sorting by the residuals between predicted average home price and actual average home price. In this way, the app displays the towns that have the best "deals" on home price.
 
 ---
 ## 3.0 Description of Data
@@ -106,12 +109,13 @@ In awe at the size of this lad. Absolute unit.
 |residuals|float|Difference between predicted and actual average home price|
 
 ---
-## 4.0 Conclusion
+## 4.0 Data Visualization
 
-Flim flam alakazam
+ <img src="./plots/rf.png">
+ <img src="./plots/resid.png">
 
-## 5.0 Next Steps
+## 5.0 Conclusion + Next Steps
 
-Insert next steps here.
+This project was largely an exercise in data gathering. Many sources had to be assembled, and many formats had to be reconciled. Some data tables were downloaded from the US census online interactive table builder, and other online resources. These were formatted typically by zip code, town, or county. Data at levels too granular such as zip code had to be grouped by town and aggregated by either mean or sum, depending on the feature. In addition, there were two major web scraping operations: one for the crime data, and one for the schools data. Given these challenges, and the fact that web scraping is inherently unreliable, the model performed remarkably on the testing data with an R2 of 0.85. The best performing model was the random forest regressor. Still, the app is more of an initial idea than a finished product. A more complete product would include more specific constraints for the user to input, as well as more information about the towns displayed. 
 
 ---
