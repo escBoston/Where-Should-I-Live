@@ -21,7 +21,6 @@ def form():
 def submit():
     global i
     i += 1
-    print(i)
     tempinc = pd.read_csv('../data/testinc.csv')
     
     user_input = request.args
@@ -34,10 +33,8 @@ def submit():
         state = user_input['state']
         state = state[0].upper() + state[1:]
     
-    print(state)
-    
-    #crime_rate_ntl_avg = np.mean(tempinc['crime_rate_pc'])
-    
+    print('submit: ',i,state)
+        
     tempinc = tempinc.loc[tempinc['home_price'] < home_budget]
     if state != 'Any':
         tempinc = tempinc.loc[tempinc['state'] == state]
@@ -54,10 +51,16 @@ def submit():
         predicted_home_price = int(best_deal['preds']),
         percent_savings = np.round(best_deal['percent_savings'] * 100, 2),
         crime_rate_pc = np.round(best_deal['crime_rate_pc'], 3),
-        #relative_crime_rate = np.round(((crime_rate_ntl_avg - best_deal['crime_rate_pc']) / crime_rate_ntl_avg) * 100, 1),
         unemployment_rate = np.round(best_deal['unemployment_rate'], 2),
         median_income = int(best_deal['med_income'])
     )
+
+@app.route('/home')
+
+def home():
+    global i
+    i = -1
+    return render_template('form1.html')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0')
