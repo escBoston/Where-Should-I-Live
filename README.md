@@ -113,6 +113,8 @@ The "Where Should I Live?" app is an online interactive tool designed to help us
 
  <img src="./plots/rf.png">
  <img src="./plots/resid.png">
+ <img src="./plots/clusters.png">
+
 
 ## 5.0 Conclusion + Next Steps
 
