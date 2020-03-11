@@ -1,4 +1,4 @@
-# Capstone README
+# Where Should I Live?
 
 ## Table of Contents
 [1.0 Directory Structure](#10-Directory-Structure)<br>
